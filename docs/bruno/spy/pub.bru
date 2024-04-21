@@ -1,0 +1,43 @@
+meta {
+  name: pub
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/pub
+  body: json
+  auth: basic
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:basic {
+  username: admin
+  password: admin1233
+}
+
+body:json {
+  {
+    "_type": "location",
+    "BSSID": "d4:35:38:91:07:5d",
+    "SSID": "Apataco",
+    "acc": 8,
+    "alt": 40,
+    "batt": 37,
+    "bs": 1,
+    "conn": "w",
+    "created_at": 1713561497,
+    "lat": 38.7785483,
+    "lon": -121.2394437,
+    "m": 1,
+    "t": "p",
+    "tid": "ph",
+    "topic": "owntracks/usr1/GA",
+    "tst": 1713559964,
+    "vac": 2,
+    "vel": 2
+  }
+}

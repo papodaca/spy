@@ -1,0 +1,4 @@
+---
+update_timezones:
+  class: UpdateTimezonesJob
+  cron: 0 0 1 */6 *

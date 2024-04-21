@@ -1,0 +1,54 @@
+default: &default
+  adapter: postgis
+  encoding: unicode
+  <% if ENV["POSTGRESQL_URL"].nil? %>
+  host: <%= ENV["DATABASE_HOST"] || "localhost" %>
+  username: <%= ENV["DATABASE_USERNAME"] || "postgres" %>
+  password: <%= ENV["DATABASE_PASSWORD"] || "postgres" %>
+  database: <%= ENV["DATABASE_DBNAME"] || "spy" %>
+  <% else %>
+  url: <%= ENV["POSTGRESQL_URL"] %>
+  <% end %>
+
+development:
+  <<: *default
+  pool: 10
+
+test:
+  <<: *default
+  database: spy_test
+
+staging:
+  <<: *default
+  pool: 10
+
+production:
+  <<: *default
+  pool:  <%= ENV.fetch("RAILS_MAX_THREADS") { 25 } %>
+
+redis:
+  jobs:
+    common: &redis_jobs_common
+      <% if ENV["REDIS_URL"].nil? %>
+      db: <%= ENV["REDIS_DB"] || "2" %>
+      host: <%= ENV["REDIS_HOST"] || "localhost" %>
+      port: 6379
+      <% if ENV["REDIS_PASSWORD"].present? %>
+      password: <%= ENV["REDIS_PASSWORD"] %>
+      <% end %>
+      <% else %>
+      url: <%= ENV["REDIS_URL"] %>
+      <% end %>
+    development: *redis_jobs_common
+    test:
+      <<: *redis_jobs_common
+      db: 3
+    production: *redis_jobs_common
+    staging: *redis_jobs_common
+  # cache:
+  #   development: &cache_redis
+  #     <<: *redis_jobs_common
+  #     db: 4
+  #   test: *cache_redis
+  #   production: *cache_redis
+  #   staging: *cache_redis
