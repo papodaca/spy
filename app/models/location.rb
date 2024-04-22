@@ -31,9 +31,11 @@
 #
 class Location < ApplicationRecord
   belongs_to :user
-  belongs_to :timezone
+  belongs_to :timezone, optional: true
 
-  def self.ransackable_attributes(auth_object = nil)
-    %w[acc alt created_at gis_location id id_value lat lon properties reported_at tid uid updated_at user_id vac]
-  end
+  def self.ransackable_attributes(auth_object = nil) = %w[acc alt created_at \
+    gis_location id id_value lat lon properties recorded_at reported_at tid \
+    timezone_id uid updated_at user_id vac]
+
+  def self.ransackable_associations(auth_object = nil) = %w[timezone user]
 end

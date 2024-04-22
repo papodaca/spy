@@ -6,6 +6,7 @@
 #  encrypted_password  :string           default(""), not null
 #  properties          :json
 #  remember_created_at :datetime
+#  role                :enum             default("basic"), not null
 #  username            :string           default(""), not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -15,12 +16,18 @@
 #  index_users_on_username  (username) UNIQUE
 #
 class User < ApplicationRecord
-  devise :database_authenticatable, :rememberable, :validatable, :argon2, authentication_keys: [:username], case_insensitive_keys: [:username]
+  devise :database_authenticatable, :rememberable, :validatable, :argon2,
+         authentication_keys: [:username], case_insensitive_keys: [:username]
+
+  def self.ransackable_attributes(auth_object = nil) = %w[encrypted_password \
+    properties username created_at role remember_created_at updated_at]
+
+  def self.ransackable_associations(auth_object = nil) = %w[locations]
 
   has_many :locations
 
-  def self.ransackable_attributes(auth_object = nil)
-    %w[created_at username encrypted_password id id_value remember_created_at reset_password_sent_at updated_at]
+  def admin?
+    role == "admin"
   end
 
   # These methods are required for devise to not fuck up

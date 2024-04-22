@@ -34,6 +34,8 @@ end
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+  gem "pry"
+  gem "pry-rails"
   gem "rack-mini-profiler"
   gem "web-console"
   gem "annotate", require: false

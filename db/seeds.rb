@@ -7,6 +7,6 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-User.find_or_create_by(username: "admin").update!(password: "admin123", password_confirmation: "admin123") if Rails.env.development?
+User.find_or_create_by(username: "admin").update!(password: "admin123", password_confirmation: "admin123", role: :admin) if Rails.env.development?
 
 Rake::Task["spy:update_timezones"].execute if Timezone.all.count.zero?
