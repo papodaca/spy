@@ -3,8 +3,8 @@ require "sidekiq/cron/web"
 
 Rails.application.routes.draw do
   devise_for :users
-  authenticate :user, lambda { |u| u.admin? }  do
-    ActiveAdmin.routes(self)
+  ActiveAdmin.routes(self)
+  authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web, at: "/sidekiq"
   end
   get "up", to: "rails/health#show", as: :rails_health_check

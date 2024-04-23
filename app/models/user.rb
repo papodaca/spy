@@ -19,14 +19,14 @@ class User < ApplicationRecord
   include AttrJson::Record
 
   devise :database_authenticatable, :rememberable, :validatable, :argon2,
-         authentication_keys: [:username], case_insensitive_keys: [:username]
+    authentication_keys: [:username], case_insensitive_keys: [:username]
 
   attr_json :friends_ids, :string,
-            array: true, default: [], store_key: :friends,
-            container_attribute: :properties
+    array: true, default: [], store_key: :friends,
+    container_attribute: :properties
 
   attr_json :tid, :string,
-            container_attribute: :properties
+    container_attribute: :properties
 
   def self.ransackable_attributes(auth_object = nil) = %w[encrypted_password \
     properties username created_at role remember_created_at updated_at]
@@ -44,7 +44,7 @@ class User < ApplicationRecord
   end
 
   def friends=(others)
-    friends_ids = others.map(&:id)
+    self.friends_ids = others.map(&:id)
   end
 
   def add_friend(other)
@@ -53,8 +53,8 @@ class User < ApplicationRecord
 
   def to_card
     {
-      "_type": "card",
-      "name": "owntracks/#{username}/#{tid}"
+      _type: "card",
+      name: "owntracks/#{username}/#{tid}"
     }
   end
 

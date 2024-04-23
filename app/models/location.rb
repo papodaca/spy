@@ -36,7 +36,7 @@ class Location < ApplicationRecord
   belongs_to :timezone, optional: true
 
   attr_json :did, :string,
-            container_attribute: :properties
+    container_attribute: :properties
 
   def self.ransackable_attributes(auth_object = nil) = %w[acc alt created_at \
     gis_location id id_value lat lon properties recorded_at reported_at tid \
@@ -46,16 +46,16 @@ class Location < ApplicationRecord
 
   def to_h
     {
-      "_type": "location",
-      "lat": lat,
-      "lon": lon,
-      "acc": acc,
-      "alt": alt,
-      "vac": vac,
-      "created_at": reported_at&.to_time&.to_i,
-      "tst": recorded_at&.to_time&.to_i,
-      "topic": "owntracks/#{user.username}/#{did || "phone"}",
-      "tid": tid
+      _type: "location",
+      lat: lat,
+      lon: lon,
+      acc: acc,
+      alt: alt,
+      vac: vac,
+      created_at: reported_at&.to_time&.to_i,
+      tst: recorded_at&.to_time&.to_i,
+      topic: "owntracks/#{user.username}/#{did || "phone"}",
+      tid: tid
     }
   end
 
