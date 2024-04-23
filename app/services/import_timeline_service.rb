@@ -17,8 +17,8 @@ class ImportTimelineService < ApplicationService
       Location.find_or_create_by(user_id: user_id, reported_at: DateTime.parse(location[:timestamp]))
         .update(
           # timezone_id: tz.id,
-          tid: user.properties&.dig(:device_ids)&.first,
-          uid: user.properties&.dig(:username),
+          tid: user.tid,
+          did: user.tid,
           lat: lat,
           lon: lon,
           gis_location: "POINT(#{lon} #{lat})",

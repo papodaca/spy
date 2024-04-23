@@ -30,12 +30,36 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Location < ApplicationRecord
+  include AttrJson::Record
+
   belongs_to :user
   belongs_to :timezone, optional: true
+
+  attr_json :did, :string,
+            container_attribute: :properties
 
   def self.ransackable_attributes(auth_object = nil) = %w[acc alt created_at \
     gis_location id id_value lat lon properties recorded_at reported_at tid \
     timezone_id uid updated_at user_id vac]
 
   def self.ransackable_associations(auth_object = nil) = %w[timezone user]
+
+  def to_h
+    {
+      "_type": "location",
+      "lat": lat,
+      "lon": lon,
+      "acc": acc,
+      "alt": alt,
+      "vac": vac,
+      "created_at": reported_at&.to_time&.to_i,
+      "tst": recorded_at&.to_time&.to_i,
+      "topic": "owntracks/#{user.username}/#{did || "phone"}",
+      "tid": tid
+    }
+  end
+
+  def to_json
+    JSON.dump(to_h)
+  end
 end

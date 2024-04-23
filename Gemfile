@@ -5,6 +5,7 @@ ruby "3.3.0"
 gem "active_interaction", "~> 5.3"
 gem "activeadmin", "4.0.0.beta5"
 gem "activerecord-postgis-adapter", "~> 9.0"
+gem "attr_json", "~> 2.3"
 gem "bootsnap", require: false
 gem "cssbundling-rails", "~> 1.4"
 gem "devise-argon2", "~> 2.0"

@@ -12,7 +12,7 @@
     "build:css:activeadmin": "bun -bun tailwindcss -i ./app/assets/stylesheets/active_admin.css -o ./app/assets/builds/active_admin.css --minify -c tailwind-active_admin.config.js",
     "build:css:app": "bun -bun tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
     "build:css": "bun -bun conc 'bun build:css:activeadmin' 'bun build:css:app'",
-    "dev": "bun -bun conc 'bun build:css:activeadmin --watch' 'bun build:css:app --watch' 'rails s' 'sidekiq'"
+    "dev": "bun -bun conc 'bun build:css:activeadmin --watch' 'bun build:css:app --watch' 'env RUBY_DEBUG_OPEN=true rails s' 'sidekiq'"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
