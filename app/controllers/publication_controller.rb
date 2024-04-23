@@ -8,7 +8,13 @@ class PublicationController < ApplicationController
       user_id: @user.id,
       params: JSON.parse(request.body.read, symbolize_keys: true)
     )
-    render json: {message: "ok"}, status: :ok
+
+    cards = @user.friends.map(&:to_card)
+    cards << @user.to_card
+    locations = @user.friends.map(&:latest_location)
+    locations << @user.latest_location.to_h
+
+    render json: cards.compact + locations.compact, status: :ok
   end
 
   private

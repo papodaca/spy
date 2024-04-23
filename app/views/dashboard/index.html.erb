@@ -1,5 +1,5 @@
 <div
   data-controller="map"
-  data-map-center-value="<%= @first_location.to_json %>">
+  data-map-center-value="<%= current_user.latest_location.to_json %>">
   <div class="map" style="width: 1500px; height: 1500px;" data-map-target="map"></div>
 </div>

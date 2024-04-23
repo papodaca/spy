@@ -21,6 +21,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :rememberable, :validatable, :argon2,
          authentication_keys: [:username], case_insensitive_keys: [:username]
 
+  attr_json :friends_ids, :string,
+            array: true, default: [], store_key: :friends,
+            container_attribute: :properties
+
   attr_json :tid, :string,
             container_attribute: :properties
 
@@ -33,6 +37,29 @@ class User < ApplicationRecord
 
   def admin?
     role == "admin"
+  end
+
+  def friends
+    User.where(id: friends_ids)
+  end
+
+  def friends=(others)
+    friends_ids = others.map(&:id)
+  end
+
+  def add_friend(other)
+    friends_ids << other.id
+  end
+
+  def to_card
+    {
+      "_type": "card",
+      "name": "owntracks/#{username}/#{tid}"
+    }
+  end
+
+  def latest_location
+    locations.order(reported_at: :desc).limit(1).first
   end
 
   # These methods are required for devise to not fuck up
