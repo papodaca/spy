@@ -21,6 +21,8 @@ FROM base as build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config
 
+COPY --from=oven/bun:1.1 /usr/local/bin/bun /usr/local/bin/
+
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \

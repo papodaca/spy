@@ -47,6 +47,7 @@ Things you may want to cover:
 9. export
     * export to owntracks, gross but could be useful. IE > 10years old points archived in owntracks format
     * other places to export, IE nextcloud phone tracker etc.
+    * proxy pass owntracks payloads to other services ie home assistant
 10. TimescaleDB?
     * It might be possible to compress the location data over time as much of it is redundant with timescale
     * look into what maps timeline does? its some how able to push all 1.6 million of my data points in < 2 seconds
